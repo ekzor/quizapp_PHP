@@ -4,8 +4,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require("dbcreds.php");
-require("DatabaseOperations.php");
-require("Question.php");
+require("classes/DatabaseOperations.php");
+require("classes/Question.php");
 
 //DATABASE VARS
 
@@ -23,6 +23,11 @@ $dbo = new DatabaseOperations($dbh);
 
 
 //PARAMETER HANDLING
+
+if (isset($_REQUEST['reset_db'])) {
+	$dbo->resetDB();
+}
+
 
 //obtain question number from parameters and initialize Question object
 if (isset($_REQUEST['question']) && is_numeric($_REQUEST['question'])) {
@@ -42,6 +47,7 @@ if (isset($_REQUEST['answer'])) {
 
 
 //RESPONSES
+
 //(this logic could have been rolled into the above conditionals, but I have chosen easier-to-follow code over minor shortcuts)
 
 //question and user's answer are both defined.
